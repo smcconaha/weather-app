@@ -6,10 +6,9 @@ let weatherState = {
     fahr: '',
     celcius: '',
   },
-  condtion: '',
+  condition: '',
   otherInfo:'',
 };
-
 // ZIP CODE VALID
 function validZip (num) {
     if (typeof num !== 'number') {
@@ -19,10 +18,15 @@ function validZip (num) {
     }
 };
 
+//EVENT Listener
+
+//.addEventListener
+
+
 // ACCESS WEATHER API
-//my API key 575569b4257361f897018503a4e9e153
 const apiKey = '575569b4257361f897018503a4e9e153';
 let zipCode = 40509;
+
 
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=${apiKey}`;
 
@@ -31,22 +35,23 @@ let apiUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&
 async function getWeather(apiUrl) {
   try {
     const response = await axios.get(apiUrl);
-    objectTranslate(response);                
+    objectTranslate(response.data);                
   } catch (error) {
     console.error(`Error: ${error}`);
   }
 };
 
-  getWeather(apiUrl);
+getWeather(apiUrl);
 
  //FUNCTION that translates received data
 function objectTranslate (response) {
-  weatherState.city = response.data.name;
-  weatherState.temperature.kelvin = response.data.main.temp;
-  weatherState.temperature.fahr = weatherState.temperature.kelvin;
-  weatherState.temperature.celcius = weatherState.temperature.kelvin;
-  weatherState.condtion = response.data.weather[0].description;
-  weatherState.otherInfo = response.data.weather[0].icon;
+  weatherState.city = response.name;
+  weatherState.temperature.kelvin = Math.round(response.main.temp);
+  weatherState.temperature.fahr = Math.round((response.main.temp - 273.15) * 1.8 + 32) + ': F';
+  weatherState.temperature.celcius = Math.round((response.main.temp -273.15)
+  ) + ': C';
+  weatherState.condition = response.weather[0].main;
+  weatherState.otherInfo = response.weather[0].icon;
 };
 
 //CREATING INIT ELEMENTS
@@ -62,7 +67,9 @@ function INIT () {
   createRowCol('col', 'headRow', 1,'', 'header','headCol2');
   //Callback function creates by element, parentId, qty, text, class, ID 
   createElements('h1', 'master', 1,'Weather App', 'header', 'headerText');
-  createElements('input', 'headCol1', 1,'', 'headerZipEnt', 'input');
+  let inputZip = createElements('input', 'headCol1', 1,'', 'headerZipEnt', 'input');
+  //inputZip.type = 'numeric';
+  //inputZip.maxlength = '5';
   createElements('button', 'headCol2', 1, 'Submit', 'headerZipEnt', 'button');
 }
 INIT ();
