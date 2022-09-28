@@ -1,3 +1,15 @@
+// DEFINE VARIABLES
+let weatherState = {
+  city: '',
+  temperature: {
+    kelvin: '',
+    fahr: '',
+    celcius: '',
+  },
+  condtion: '',
+  otherInfo:'',
+};
+
 // ZIP CODE VALID
 function validZip (num) {
     if (typeof num !== 'number') {
@@ -15,23 +27,30 @@ let zipCode = 40509;
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=${apiKey}`;
 
 //ACCESSING API USING AXIOS 
-/*const axios = require('axios').default; //this is not needed with script tag included in HTML
+//const axios = require('axios').default; //this is not needed with script tag included in HTML
 async function getWeather(apiUrl) {
-    try {
-      const response = await axios.get(apiUrl);
-      console.log(response.data.name);
-      console.log(response.data.main.temp);
-      console.log(response.data.weather[0].description);
-      console.log(response.data.weather[0].icon);                  
-    } catch (error) {
-      console.error(`Error: ${error}`);
-    }
-  };
+  try {
+    const response = await axios.get(apiUrl);
+    objectTranslate(response);                
+  } catch (error) {
+    console.error(`Error: ${error}`);
+  }
+};
 
   getWeather(apiUrl);
-*/
+
+ //FUNCTION that translates received data
+function objectTranslate (response) {
+  weatherState.city = response.data.name;
+  weatherState.temperature.kelvin = response.data.main.temp;
+  weatherState.temperature.fahr = weatherState.temperature.kelvin;
+  weatherState.temperature.celcius = weatherState.temperature.kelvin;
+  weatherState.condtion = response.data.weather[0].description;
+  weatherState.otherInfo = response.data.weather[0].icon;
+};
+
 //CREATING INIT ELEMENTS
-let master = document.querySelector('div');
+let master = document.getElementById('master');
 master.id = 'master';
 master.class = 'container';
 
@@ -48,6 +67,7 @@ function INIT () {
 }
 INIT ();
 
+//CREATE ROW and COL function
 function createRowCol (rowColNeed, parentId, qty, text, className, idName) {
   for (i = 0; i < qty; i++) {
     let newDiv = document.createElement('div');
@@ -65,7 +85,8 @@ function createRowCol (rowColNeed, parentId, qty, text, className, idName) {
     document.getElementById(parentId).appendChild(newDiv);
   }
 };
-  
+
+//CREATE ELEMENTS
 function createElements (element, parentId, qty, text, className, idName) {
   for (i = 0; i < qty; i++) {
     let newElement = document.createElement(element);

@@ -91,9 +91,19 @@ Initial state at DOM content load will be the <div> element to include <h1>, <in
 *FUNCTION* - tempConvert
 *ENDFUNCTION* 
 
+*FUNCTION* - translateData
+    using API data, create new object variables
+*ENDFUNCTION* 
+
 ---
 ## START
 ---
+
+under get, feed in function that separates the pieces of the data out
+
+define the objects as blank
+function parseFun (){ object.object = data.weather.temp}
+
 
 *FUNCTION* - init()
     GET header, zipCode form input, and getWeather button
