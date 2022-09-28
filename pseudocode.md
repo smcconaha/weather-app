@@ -43,7 +43,11 @@ Initial state at DOM content load will be the <div> element to include <h1>, <in
 *FUNCTION* -
 *ENDFUNCTION* 
 
+*FUNCTION* - createRowCol
+*ENDFUNCTION* 
+
 *FUNCTION* - init()
+    *FUN* -createRowCol
     create container div
         create row div for header
             create col div
