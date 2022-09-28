@@ -2,12 +2,12 @@
 ---
 city: 
     type = string
-    API object = "name"
+    API object = "data.name"
     description = name of city where weather is being requested, ties to zip code
 
 temperature:
     type = string
-    API object = "temp"
+    API object = "data.main.temp"
     description = temperature reading of zip code measure in Kelvin
 
 apiKey: 
@@ -17,12 +17,12 @@ apiKey:
 
 condition: 
     type = string
-    API object = "main" or "clear sky"
+    API object = data.weather.description
     description = descriptor of physical weather
 
 images:
     type = img
-    API object = N/A
+    API object = data.weather.icon
     description = image tied to condition
 
 zipCode: 
@@ -43,7 +43,7 @@ Initial state at DOM content load will be the <div> element to include <h1>, <in
 *FUNCTION* -
 *ENDFUNCTION* 
 
-*FUNCTION* - init
+*FUNCTION* - init()
     create container div
         create row div for header
             create col div
@@ -52,14 +52,14 @@ Initial state at DOM content load will be the <div> element to include <h1>, <in
                 create button element for getWeather
 *ENDFUNCTION* 
 
-*FUNCTION* - validZip
+*FUNCTION* - validZip()
     IF validZip does not equal number type
         THEN please enter a valid number AND do not submit request
     ELSE 
         SUBMIT request
 *ENDFUNCTION*
 
-*FUNCTION* - createElements
+*FUNCTION* - createElements()
         create row div for city 
             create col div
         create row div for temperature
@@ -90,9 +90,11 @@ Initial state at DOM content load will be the <div> element to include <h1>, <in
 ---
 ## START
 ---
-INIT
 
-GET header, zipCode form input, and getWeather button
+*FUNCTION* - init()
+    GET header, zipCode form input, and getWeather button
+*ENDFUNCTION*
+
 
 IF user enters five digit zip code into zipCode form input AND user clicks getWeather button
     THEN *FUNCTION* - validZip
@@ -101,6 +103,7 @@ IF user enters five digit zip code into zipCode form input AND user clicks getWe
         ELSE 
             SUBMIT request
     *ENDFUNCTION*
+
 
 
     

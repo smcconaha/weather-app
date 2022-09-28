@@ -14,16 +14,48 @@ let zipCode = 40509;
 
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&appid=${apiKey}`;
 
-
-const axios = require('axios').default;
+//ACCESSING API USING AXIOS 
+/*const axios = require('axios').default; //this is not needed with script tag included in HTML
 async function getWeather(apiUrl) {
     try {
       const response = await axios.get(apiUrl);
-      console.log(response);
+      console.log(response.data.name);
+      console.log(response.data.main.temp);
+      console.log(response.data.weather[0].description);
+      console.log(response.data.weather[0].icon);                  
     } catch (error) {
-      console.error(error);
+      console.error(`Error: ${error}`);
     }
   };
-  getWeather(apiUrl);
-  
 
+  getWeather(apiUrl);
+*/
+//CREATING INIT ELEMENTS
+let master = document.querySelector('div');
+master.setAttribute('id', 'master');
+master.setAttribute('class', 'container');
+let city = document.createElement('h1');
+city.textContent = "Something";
+city.setAttribute('id','city');
+document.body.appendChild(city);
+
+function INIT () {
+  let 
+}
+
+function createRow (rowColNeed, num, className, idName) {
+  for (i = 0; i <= num; i++) {
+    document.createElement('div');
+    if (idName) {
+      rowColNeed.id = idName;
+    }
+    if (className) {
+      rowColNeed.class = className;
+    }
+    document.body.appendChild.();
+  }
+}
+  
+function createCol () {
+
+}
