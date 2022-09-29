@@ -10,22 +10,25 @@ let weatherState = {
   otherInfo:'',
 };
 // ZIP CODE VALID
-function validZip (num) {
-  if (typeof num !== 'number') {
+/*function validZip (num) {
+  if (typeof num !== 'numberic') {
     console.log('Please enter a valid number');
   } else {
     console.log('Thank you');
   }
 };
-
+*/
 //EVENT Listener
 function submitRequest () {
   submitBtn.addEventListener ('click', () => {
     let zipInput = document.getElementById('zipInput');
-    const apiKey = '575569b4257361f897018503a4e9e153';
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${zipInput.value},us&appid=${apiKey}`;
-    getWeather(apiUrl);
-    createElements('div', 'master', 1,'THIS IS A CLICK TEST', 'row header','headRow');
+    if (isNaN(zipInput.value) || zipInput.value.length !== 5) {
+      console.log('Cool!')
+    } else {
+      const apiKey = '575569b4257361f897018503a4e9e153';
+      let apiUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${zipInput.value},us&appid=${apiKey}`;
+      getWeather(apiUrl);
+    }
   });
 };
 
@@ -34,7 +37,15 @@ function submitRequest () {
 async function getWeather(apiUrl) {
   try {
     const response = await axios.get(apiUrl);
-    objectTranslate(response.data);
+    //objectTranslate(response.data);
+    weatherState.city = response.data.name;
+    weatherState.temperature.kelvin = Math.round(response.data.main.temp);
+    weatherState.temperature.fahr = Math.round((response.data.main.temp - 273.15) * 1.8 + 32) + ': F';
+    weatherState.temperature.celcius = Math.round((response.data.main.temp -273.15)
+    ) + ': C';
+    weatherState.condition = response.data.weather[0].main;
+    weatherState.otherInfo = response.data.weather[0].icon;
+    apiPagePop(createElements);
     console.log(response.data);               
   } catch (error) {
     console.error(`Error: ${error}`);
@@ -43,15 +54,8 @@ async function getWeather(apiUrl) {
   
   
 //FUNCTION that translates received data
-function objectTranslate (response) {
-  weatherState.city = response.name;
-  weatherState.temperature.kelvin = Math.round(response.main.temp);
-  weatherState.temperature.fahr = Math.round((response.main.temp - 273.15) * 1.8 + 32) + ': F';
-  weatherState.temperature.celcius = Math.round((response.main.temp -273.15)
-  ) + ': C';
-  weatherState.condition = response.weather[0].main;
-  weatherState.otherInfo = response.weather[0].icon;
-};
+//function objectTranslate (response) {
+//};
   
 //CREATING INIT ELEMENTS
 let master = document.getElementById('master');
@@ -72,6 +76,24 @@ function INIT () {
   submitBtn = document.getElementById('submitBtn');
   zipInput = document.getElementById('zipInput');
   submitRequest(submitBtn, zipInput);
+};
+
+function apiPagePop (createElements) {
+  createElements('div', 'master', 1,'', 'row body','cityRow');
+  createElements('div', 'cityRow', 1,'City', 'col body','cityCol');
+  createElements('p', 'cityCol', 1, weatherState.city, 'col body','city');  
+  createElements('div', 'master', 1,'Temperature', 'row body','tempRow');
+  createElements('div', 'tempRow', 1,'', 'col body','kelvinCol');
+  createElements('p', 'kelvinCol', 1, weatherState.temperature.kelvin, 'col body','kelvin'); 
+  createElements('div', 'tempRow', 1,'', 'col body','fahrCol');
+  createElements('p', 'fahrCol', 1, weatherState.temperature.fahr, 'col body','fahr');
+  createElements('div', 'tempRow', 1,'', 'col body','celciusCol');   
+  createElements('p', 'kelvinCol', 1, weatherState.temperature.celcius, 'col body','celcius');
+  createElements('div', 'master', 1,'Condition', 'row body','condiRow');
+  createElements('div', 'condiRow', 1,'', 'col body','condiCol');
+  createElements('p', 'condiCol', 1, weatherState.condition, 'col body','condition');
+  createElements('div', 'master', 1,'Other Info', 'row body','imgRow');
+  createElements('div', 'imgRow', 1,'', 'col body','imgCol');
 };
 
 window.addEventListener('DOMContentLoaded', (event) => {
