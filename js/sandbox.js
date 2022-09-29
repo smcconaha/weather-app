@@ -51,7 +51,7 @@ async function getWeather(apiUrl) {
 //CREATING INIT ELEMENTS
 let master = document.getElementById('master');
 master.id = 'master';
-master.class = 'container';
+master.className = 'container';
   
   
 function INIT () {
