@@ -9,21 +9,13 @@ let weatherState = {
   condition: '',
   otherInfo:'',
 };
-// ZIP CODE VALID
-/*function validZip (num) {
-  if (typeof num !== 'numberic') {
-    console.log('Please enter a valid number');
-  } else {
-    console.log('Thank you');
-  }
-};
-*/
-//EVENT Listener
+
+//EVENT Listener with zip validation
 function submitRequest () {
   submitBtn.addEventListener ('click', () => {
     let zipInput = document.getElementById('zipInput');
     if (isNaN(zipInput.value) || zipInput.value.length !== 5) {
-      console.log('Cool!')
+      alert('Please input valid zip code');
     } else {
       const apiKey = '575569b4257361f897018503a4e9e153';
       let apiUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${zipInput.value},us&appid=${apiKey}`;
@@ -45,10 +37,9 @@ async function getWeather(apiUrl) {
     ) + ': C';
     weatherState.condition = response.data.weather[0].main;
     weatherState.otherInfo = response.data.weather[0].icon;
-    apiPagePop(createElements);
-    console.log(response.data);               
+    apiPagePop(createElements);              
   } catch (error) {
-    console.error(`Error: ${error}`);
+    console.error(`Response error: ${error}`);
   }
 };
   
