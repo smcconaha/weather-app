@@ -31,7 +31,7 @@ async function getWeather(apiUrl) {
     const response = await axios.get(apiUrl);
     //objectTranslate(response.data);
     weatherState.city = response.data.name;
-    weatherState.temperature.kelvin = Math.round(response.data.main.temp);
+    weatherState.temperature.kelvin = Math.round(response.data.main.temp) + ' K';
     weatherState.temperature.fahr = Math.round((response.data.main.temp - 273.15) * 1.8 + 32) + ' F';
     weatherState.temperature.celcius = Math.round((response.data.main.temp -273.15)
     ) + ' C';
@@ -43,11 +43,6 @@ async function getWeather(apiUrl) {
   }
 };
   
-  
-//FUNCTION that translates received data
-//function objectTranslate (response) {
-//};
-  
 //CREATING INIT ELEMENTS
 let master = document.getElementById('master');
 master.id = 'master';
@@ -56,41 +51,62 @@ master.className = 'container text-center';
   
 function INIT () {
   //Callback function creates by element, parentId, qty, text, class, ID 
-  createElements('div', 'master', 1,'', 'row header','headRow');
-  createElements('div', 'headRow', 1,'Weather App', 'col-12','headColMain');
-  createElements('div', 'headRow', 1,'', 'col-4 offset-2','headCol1');
-  createElements('div', 'headRow', 1,'', 'col-4 offset-2','headCol2');
-  createElements('input', 'headCol1', 1,'', 'headerZipEnt', 'zipInput');
-  //inputZip.type = 'numeric';
-  //inputZip.maxlength = '5';
-  createElements('button', 'headCol2', 1, 'Submit', 'headerZipEnt', 'submitBtn');
+  createElements('div', 'master', 1,'', 'card','headCard');
+  createElements('h5', 'headCard', 1,'Weather App', 'card-title','headCardMain');
+  createElements('div', 'master', 1,'', 'input-group mb-3', 'inputGroup');
+  createElements('span', 'inputGroup', 1,'Zip Code Entry', 'input-group-text', '');
+  createElements('input', 'inputGroup', 1,'', 'form-control', 'zipInput');
+  createElements('button', 'headCard', 1, 'Submit', 'btn btn-info', 'submitBtn');
   submitBtn = document.getElementById('submitBtn');
   zipInput = document.getElementById('zipInput');
+  zipInput.setAttribute('aria-label', 'With textarea');
   submitRequest(submitBtn, zipInput);
 };
 
+
 function apiPagePop (createElements) {
-  createElements('div', 'master', 1,'', 'row  border border-success p-4','cityRow');
-  createElements('div', 'cityRow', 1,'City', 'col-12 bg-warning p-1','cityCol');
-  createElements('p', 'cityRow', 1, weatherState.city, 'col-12','city');  
-  createElements('div', 'master', 1,'', 'row border border-success p-4','tempRow');
-  createElements('div', 'tempRow', 1,'Temperature', 'col-12 bg-warning p-1','tempHead');  
-  createElements('div', 'tempRow', 1,'', 'col-4','kelvinCol');
-  createElements('p', 'kelvinCol', 1, weatherState.temperature.kelvin, 'col body','kelvin'); 
-  createElements('div', 'tempRow', 1,'', 'col-4','fahrCol');
-  createElements('p', 'fahrCol', 1, weatherState.temperature.fahr, 'col body','fahr');
-  createElements('div', 'tempRow', 1,'', 'col-4','celciusCol');   
-  createElements('p', 'celciusCol', 1, weatherState.temperature.celcius, 'col body','celcius');
-  createElements('div', 'master', 1,'', 'row border border-success p-4','condiRow');
-  createElements('div', 'condiRow', 1,'Condition', 'col-12 bg-warning p-1','condiHead');
-  createElements('div', 'condiRow', 1,'', 'col-12','condiCol');
-  createElements('p', 'condiCol', 1, weatherState.condition, 'col body','condition');
-  //createElements('div', 'master', 1,'', 'row border border-success p-4','imgRow');
-  //createElements('div', 'imgRow', 1,'Other Info', 'col-12 bg-warning p-1','imgCol');
+  createElements('div', 'master', 1,'', 'card border-dark mb-3','cityCard');
+  cityCard = document.getElementById('cityCard');
+  cityCard.style = 'max-width: 60rem;';
+  createElements('div', 'cityCard', 1,'', 'card-header bg-warning','cityHeader');
+  document.getElementById('cityHeader');
+  cityHeader = document.getElementById('cityHeader');
+  cityHeader.textContent = 'City';
+  createElements('div', 'cityCard', 1,'', 'card-title','cityTitle');  
+  createElements('p', 'cityTitle', 1, weatherState.city, 'card-text','city');  
+  createElements('div', 'master', 1,'', 'card border-dark mb-3','tempCard');
+  tempCard = document.getElementById('tempCard');
+  tempCard.style = 'max-width: 60rem;';
+  createElements('div', 'tempCard', 1,'', 'card-header bg-warning','tempHeader');
+  document.getElementById('tempHeader');
+  tempHeader = document.getElementById('tempHeader');
+  tempHeader.textContent = 'Temperature';
+  createElements('div', 'tempHeader', 1,'', 'card-group','tempCardGroup');
+  createElements('div', 'tempCardGroup', 1,'', 'card','cardOne');
+  createElements('div', 'cardOne', 1,'', 'card-body','cardOneBody');
+  createElements('h5', 'cardOneBody', 1,'', 'card-title','cardOneTitle');
+  createElements('p', 'cardOneBody', 1, weatherState.temperature.kelvin, 'card-title','cardOneText');
+  createElements('div', 'tempCardGroup', 1,'', 'card','cardTwo');
+  createElements('div', 'cardTwo', 1,'', 'card-body','cardTwoBody');
+  createElements('h5', 'cardTwoBody', 1,'', 'card-title','cardTwoTitle');
+  createElements('p', 'cardTwoBody', 1, weatherState.temperature.fahr, 'card-title','cardTwoText');
+  createElements('div', 'tempCardGroup', 1,'', 'card','cardThree');
+  createElements('div', 'cardThree', 1,'', 'card-body','cardThreeBody');
+  createElements('h5', 'cardThreeBody', 1,'', 'card-title','cardThreeTitle');
+  createElements('p', 'cardThreeBody', 1, weatherState.temperature.celcius, 'card-title','cardThreeText');
+  createElements('div', 'master', 1,'', 'card border-dark mb-3','condiCard');
+  condiCard = document.getElementById('condiCard');
+  condiCard.style = 'max-width: 60rem;';
+  createElements('div', 'condiCard', 1,'', 'card-header bg-warning','condiHeader');
+  document.getElementById('condiHeader');
+  cityHeader = document.getElementById('condiHeader');
+  cityHeader.textContent = 'Condition';
+  createElements('div', 'condiCard', 1,'', 'card-title','condiTitle');  
+  createElements('p', 'condiTitle', 1, weatherState.condition, 'card-text','condition');    
   createElements('div', 'master', 1,'', 'card','imgHead');
   imgHead = document.getElementById('imgHead');
   imgHead.style = "width: 18rem";
-  createElements('img', 'imgHead', 1,'', 'card-img-top','imgSrc');
+  createElements('img', 'imgHead', 1,'', 'rounded mx-auto justify-content-center align-items-center','imgSrc');
   imgSrc = document.getElementById('imgSrc');
   imgSrc.src = `https://openweathermap.org/img/wn/${weatherState.otherInfo}@2x.png`;
 };
