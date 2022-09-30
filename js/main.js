@@ -10,6 +10,8 @@ master.className = 'container text-center';
 function INIT () {
 //Callback function creates by element, parentId, qty, text, class, ID 
     createElements('div', 'master', 1,'', 'card','headCard');
+    let headCard = document.getElementById('headCard');
+    headCard.style = 'max-width: 60rem';
     createElements('h5', 'headCard', 1,'Weather App', 'card-title','headCardMain');
     createElements('div', 'master', 1,'', 'input-group mb-3', 'inputGroup');
     createElements('span', 'inputGroup', 1,'Zip Code Entry', 'input-group-text', '');
@@ -19,6 +21,7 @@ function INIT () {
     submitBtn = document.getElementById('submitBtn');
     clearBtn = document.getElementById('clearBtn');   
     zipInput = document.getElementById('zipInput');
+    zipInput.style = 'max-width: 51.5rem';
     zipInput.setAttribute('aria-label', 'With textarea');
     clearRequest(clearBtn);
     submitRequest(submitBtn, zipInput);
@@ -98,6 +101,7 @@ function createElements (element, parentId, qty, text, className, idName) {
 
 //Creates elements following API call, called in translate API data section
 function apiPagePop (createElements) {
+    //City Section
     createElements('div', 'master', 1,'', 'card border-dark mb-3','cityCard');
     cityCard = document.getElementById('cityCard');
     cityCard.style = 'max-width: 60rem;';
@@ -107,6 +111,7 @@ function apiPagePop (createElements) {
     cityHeader.textContent = 'City';
     createElements('div', 'cityCard', 1,'', 'card-title','cityTitle');  
     createElements('p', 'cityTitle', 1, weatherState.city, 'card-text','city');  
+    //Temperature Section
     createElements('div', 'master', 1,'', 'card border-dark mb-3','tempCard');
     tempCard = document.getElementById('tempCard');
     tempCard.style = 'max-width: 60rem;';
@@ -127,6 +132,7 @@ function apiPagePop (createElements) {
     createElements('div', 'cardThree', 1,'', 'card-body','cardThreeBody');
     createElements('h5', 'cardThreeBody', 1,'', 'card-title','cardThreeTitle');
     createElements('p', 'cardThreeBody', 1, weatherState.temperature.celcius, 'card-title','cardThreeText');
+    //Condition Section
     createElements('div', 'master', 1,'', 'card border-dark mb-3','condiCard');
     condiCard = document.getElementById('condiCard');
     condiCard.style = 'max-width: 60rem;';
@@ -136,14 +142,18 @@ function apiPagePop (createElements) {
     cityHeader.textContent = 'Condition';
     createElements('div', 'condiCard', 1,'', 'card-title','condiTitle');  
     createElements('p', 'condiTitle', 1, weatherState.condition, 'card-text','condition');    
-    createElements('div', 'master', 1,'', 'card','imgHead');
+    //Img Section
+    createElements('div', 'master', 1,'', 'card border-dark mb-3','imgCard');
+    imgCard = document.getElementById('imgCard');
+    imgCard.style = 'max-width: 60rem;';
+    createElements('div', 'imgCard', 1,'', 'card-header bg-warning','imgHeader');
+    document.getElementById('imgHeader');
+    imgHeader = document.getElementById('imgHeader');
+    imgHeader.textContent = 'Other Info';
+    createElements('div', 'imgCard', 1,'', 'card','imgHead');
     imgHead = document.getElementById('imgHead');
-    imgHead.style = "width: 18rem";
+    imgHead.style = "width: 60rem";
     createElements('img', 'imgHead', 1,'', 'rounded mx-auto justify-content-center align-items-center','imgSrc');
     imgSrc = document.getElementById('imgSrc');
     imgSrc.src = `https://openweathermap.org/img/wn/${weatherState.otherInfo}@2x.png`;
 };
-  
-
-  
-
