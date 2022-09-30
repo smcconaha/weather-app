@@ -13,11 +13,14 @@ function INIT () {
     createElements('h5', 'headCard', 1,'Weather App', 'card-title','headCardMain');
     createElements('div', 'master', 1,'', 'input-group mb-3', 'inputGroup');
     createElements('span', 'inputGroup', 1,'Zip Code Entry', 'input-group-text', '');
-    createElements('input', 'inputGroup', 1,'', 'form-control', 'zipInput');
     createElements('button', 'headCard', 1, 'Submit', 'btn btn-info', 'submitBtn');
+    createElements('button', 'headCard', 1, 'Clear Contents', 'btn btn-danger', 'clearBtn');
+    createElements('input', 'inputGroup', 1,'', 'form-control', 'zipInput');
     submitBtn = document.getElementById('submitBtn');
+    clearBtn = document.getElementById('clearBtn');   
     zipInput = document.getElementById('zipInput');
     zipInput.setAttribute('aria-label', 'With textarea');
+    clearRequest(clearBtn);
     submitRequest(submitBtn, zipInput);
 };
 
@@ -35,17 +38,29 @@ let weatherState = {
   
 //Event Listener with zip validation
 function submitRequest () {
-submitBtn.addEventListener ('click', () => {
-    let zipInput = document.getElementById('zipInput');
-    if (isNaN(zipInput.value) || zipInput.value.length !== 5) {
-    alert('Please input valid zip code');
-    } else {
-    const apiKey = '575569b4257361f897018503a4e9e153';
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${zipInput.value},us&appid=${apiKey}`;
-    getWeather(apiUrl);
-    }
-});
+    submitBtn.addEventListener ('click', () => {
+        let zipInput = document.getElementById('zipInput');
+        if (isNaN(zipInput.value) || zipInput.value.length !== 5) {
+        alert('Please input valid zip code');
+        } else {
+        const apiKey = '575569b4257361f897018503a4e9e153';
+        let apiUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${zipInput.value},us&appid=${apiKey}`;
+        getWeather(apiUrl);
+        }
+    });
 };
+
+//Clear content event listener
+function clearRequest () {
+    clearBtn.addEventListener ('click', () => {
+        while (master.firstChild) {
+            master.firstChild.remove()
+        };
+        INIT();
+    });
+};
+
+
   
 //Translating API data into object state
 async function getWeather(apiUrl) {
