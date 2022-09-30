@@ -152,7 +152,7 @@ function apiPagePop (createElements) {
     imgHeader.textContent = 'Other Info';
     createElements('div', 'imgCard', 1,'', 'card','imgHead');
     imgHead = document.getElementById('imgHead');
-    imgHead.style = "width: 60rem";
+    imgHead.style = "max-width: 60rem";
     createElements('img', 'imgHead', 1,'', 'rounded mx-auto justify-content-center align-items-center','imgSrc');
     imgSrc = document.getElementById('imgSrc');
     imgSrc.src = `https://openweathermap.org/img/wn/${weatherState.otherInfo}@2x.png`;
