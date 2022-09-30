@@ -74,6 +74,7 @@ function apiPagePop (createElements) {
   cityHeader.textContent = 'City';
   createElements('div', 'cityCard', 1,'', 'card-title','cityTitle');  
   createElements('p', 'cityTitle', 1, weatherState.city, 'card-text','city');  
+  
   createElements('div', 'master', 1,'', 'row border border-success p-4','tempRow');
   createElements('div', 'tempRow', 1,'Temperature', 'col-12 bg-warning p-1','tempHead');  
   createElements('div', 'tempRow', 1,'', 'col-4','kelvinCol');
@@ -82,20 +83,18 @@ function apiPagePop (createElements) {
   createElements('p', 'fahrCol', 1, weatherState.temperature.fahr, 'col body','fahr');
   createElements('div', 'tempRow', 1,'', 'col-4','celciusCol');   
   createElements('p', 'celciusCol', 1, weatherState.temperature.celcius, 'col body','celcius');
-  createElements('div', 'master', 1,'', 'row border border-success p-4','condiRow');
-  createElements('div', 'condiRow', 1,'Condition', 'col-12 bg-warning p-1','condiHead');
-  createElements('div', 'condiRow', 1,'', 'col-12','condiCol');
-  createElements('p', 'condiCol', 1, weatherState.condition, 'col body','condition');
-
-  createElements('div', 'master', 1,'', 'card border-dark mb-3','cityCard');
-  cityCard = document.getElementById('cityCard');
-  cityCard.style = 'max-width: 60rem;';
-  createElements('div', 'cityCard', 1,'', 'card-header bg-warning','cityHeader');
-  document.getElementById('cityHeader');
-  cityHeader = document.getElementById('cityHeader');
-  cityHeader.textContent = 'City';
+  
 
   
+  createElements('div', 'master', 1,'', 'card border-dark mb-3','condiCard');
+  condiCard = document.getElementById('condiCard');
+  condiCard.style = 'max-width: 60rem;';
+  createElements('div', 'condiCard', 1,'', 'card-header bg-warning','condiHeader');
+  document.getElementById('condiHeader');
+  cityHeader = document.getElementById('condiHeader');
+  cityHeader.textContent = 'Condition';
+  createElements('div', 'condiCard', 1,'', 'card-title','condiTitle');  
+  createElements('p', 'condiTitle', 1, weatherState.condition, 'card-text','condition');    
   createElements('div', 'master', 1,'', 'card','imgHead');
   imgHead = document.getElementById('imgHead');
   imgHead.style = "width: 18rem";
