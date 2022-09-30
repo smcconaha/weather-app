@@ -43,11 +43,6 @@ async function getWeather(apiUrl) {
   }
 };
   
-  
-//FUNCTION that translates received data
-//function objectTranslate (response) {
-//};
-  
 //CREATING INIT ELEMENTS
 let master = document.getElementById('master');
 master.id = 'master';
@@ -56,23 +51,29 @@ master.className = 'container text-center';
   
 function INIT () {
   //Callback function creates by element, parentId, qty, text, class, ID 
-  createElements('div', 'master', 1,'', 'row header','headRow');
-  createElements('div', 'headRow', 1,'Weather App', 'col-12','headColMain');
-  createElements('div', 'headRow', 1,'', 'col-4 offset-2','headCol1');
-  createElements('div', 'headRow', 1,'', 'col-4 offset-2','headCol2');
-  createElements('input', 'headCol1', 1,'', 'headerZipEnt', 'zipInput');
-  //inputZip.type = 'numeric';
-  //inputZip.maxlength = '5';
-  createElements('button', 'headCol2', 1, 'Submit', 'headerZipEnt', 'submitBtn');
+  createElements('div', 'master', 1,'', 'card','headCard');
+  createElements('h5', 'headCard', 1,'Weather App', 'card-title','headCardMain');
+  createElements('div', 'master', 1,'', 'input-group mb-3', 'inputGroup');
+  createElements('span', 'inputGroup', 1,'Zip Code Entry', 'input-group-text', '');
+  createElements('input', 'inputGroup', 1,'', 'form-control', 'zipInput');
+  createElements('button', 'headCard', 1, 'Submit', 'btn btn-info', 'submitBtn');
   submitBtn = document.getElementById('submitBtn');
   zipInput = document.getElementById('zipInput');
+  zipInput.setAttribute('aria-label', 'With textarea');
   submitRequest(submitBtn, zipInput);
 };
 
+
 function apiPagePop (createElements) {
-  createElements('div', 'master', 1,'', 'row  border border-success p-4','cityRow');
-  createElements('div', 'cityRow', 1,'City', 'col-12 bg-warning p-1','cityCol');
-  createElements('p', 'cityRow', 1, weatherState.city, 'col-12','city');  
+  createElements('div', 'master', 1,'', 'card border-dark mb-3','cityCard');
+  cityCard = document.getElementById('cityCard');
+  cityCard.style = 'max-width: 60rem;';
+  createElements('div', 'cityCard', 1,'', 'card-header bg-warning','cityHeader');
+  document.getElementById('cityHeader');
+  cityHeader = document.getElementById('cityHeader');
+  cityHeader.textContent = 'City';
+  createElements('div', 'cityCard', 1,'', 'card-title','cityTitle');  
+  createElements('p', 'cityTitle', 1, weatherState.city, 'card-text','city');  
   createElements('div', 'master', 1,'', 'row border border-success p-4','tempRow');
   createElements('div', 'tempRow', 1,'Temperature', 'col-12 bg-warning p-1','tempHead');  
   createElements('div', 'tempRow', 1,'', 'col-4','kelvinCol');
@@ -85,8 +86,16 @@ function apiPagePop (createElements) {
   createElements('div', 'condiRow', 1,'Condition', 'col-12 bg-warning p-1','condiHead');
   createElements('div', 'condiRow', 1,'', 'col-12','condiCol');
   createElements('p', 'condiCol', 1, weatherState.condition, 'col body','condition');
-  //createElements('div', 'master', 1,'', 'row border border-success p-4','imgRow');
-  //createElements('div', 'imgRow', 1,'Other Info', 'col-12 bg-warning p-1','imgCol');
+
+  createElements('div', 'master', 1,'', 'card border-dark mb-3','cityCard');
+  cityCard = document.getElementById('cityCard');
+  cityCard.style = 'max-width: 60rem;';
+  createElements('div', 'cityCard', 1,'', 'card-header bg-warning','cityHeader');
+  document.getElementById('cityHeader');
+  cityHeader = document.getElementById('cityHeader');
+  cityHeader.textContent = 'City';
+
+  
   createElements('div', 'master', 1,'', 'card','imgHead');
   imgHead = document.getElementById('imgHead');
   imgHead.style = "width: 18rem";
